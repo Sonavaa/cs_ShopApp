@@ -1,6 +1,7 @@
 ﻿using Service.Services.Interfaces;
 using Shop.Core.Models;
 using Service.Extentions;
+using Shop.Core.Enum;
 
 namespace Service.Services.Implementations
 {
@@ -12,6 +13,7 @@ namespace Service.Services.Implementations
             Product[] products = new Product[0];
             Console.WriteLine("1.Create product");
             Console.WriteLine("2.Show products");
+            Console.WriteLine("3.Get product by Id");
             Console.WriteLine("0.close");
             string Request = Console.ReadLine();
             while (Request != "0")
@@ -24,8 +26,11 @@ namespace Service.Services.Implementations
                     case "2":
                         ShowProducts();
                         break;
+                    case "3":
+                        GetProductsById();
+                        break;
                     default:
-                        Console.WriteLine("please add valid option");
+                        Console.WriteLine("Please add valid option");
                         break;
                 }
                 Request = Console.ReadLine();
@@ -33,12 +38,18 @@ namespace Service.Services.Implementations
         }
         public void Create()
         {
-            Console.WriteLine("Name daxil edin");
+            Console.WriteLine("Add Name");
             string Name = Console.ReadLine();
             Name = Name.ValidateString();
-            Console.WriteLine("Price daxil edin");
+            Console.WriteLine("Add Price");
             double Price = double.Parse(Console.ReadLine());
-            Console.WriteLine("StockCount daxil edin");
+            Console.WriteLine("Choose Category");
+            Console.WriteLine($"1.{ProductTypeEnum.RedMeat}");
+            Console.WriteLine($"2.{ProductTypeEnum.Poultry}");
+            Console.WriteLine($"3.{ProductTypeEnum.Pork}");
+            Console.WriteLine($"4.{ProductTypeEnum.Seafood}");
+            int Category = int.Parse( Console.ReadLine());
+            Console.WriteLine("Add StockCount");
             int StockCount = int.Parse(Console.ReadLine());
             Product product = new Product();
             product.Name= Name;
@@ -69,7 +80,7 @@ namespace Service.Services.Implementations
                     break;
                 }
             }
-            if (Result != null)
+            if (Result == null)
             {
                 Console.WriteLine($"Product not found whit {id}");
 
